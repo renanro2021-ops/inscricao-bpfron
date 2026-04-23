@@ -79,46 +79,7 @@
   .photo-hint { font-size: 9px; color: var(--gray-mid); text-align: center; letter-spacing: 0.5px; line-height: 1.4; }
   .photo-check { position: absolute; top: 5px; right: 5px; background: #1a6b3a; border-radius: 50%; width: 18px; height: 18px; display: none; align-items: center; justify-content: center; }
 
-  /* UPLOAD DOCS GRID */
-  .upload-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 4px; }
 
-  .upload-card {
-    border: 1.5px dashed var(--gray-light);
-    border-radius: 4px;
-    background: var(--off-white);
-    padding: 0;
-    overflow: hidden;
-    transition: border-color 0.2s;
-    cursor: pointer;
-    position: relative;
-  }
-  .upload-card:hover { border-color: var(--navy); }
-  .upload-card.done { border-color: #1a6b3a; border-style: solid; background: #f0faf4; }
-
-  .upload-card input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; z-index: 2; }
-
-  .card-header {
-    background: var(--navy);
-    padding: 7px 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .upload-card.done .card-header { background: #1a6b3a; }
-  .card-header .card-icon { color: var(--gold); flex-shrink: 0; }
-  .upload-card.done .card-header .card-icon { color: #a8f0c0; }
-  .card-header .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; font-weight: 600; flex: 1; }
-  .card-header .card-status { font-size: 9px; color: rgba(255,255,255,0.5); white-space: nowrap; }
-  .upload-card.done .card-header .card-status { color: #a8f0c0; }
-
-  .card-body { padding: 10px 12px; display: flex; align-items: center; gap: 10px; min-height: 64px; }
-  .card-preview { width: 44px; height: 44px; border-radius: 2px; object-fit: cover; display: none; flex-shrink: 0; border: 1px solid var(--gray-light); }
-  .card-preview.pdf-icon { display: flex; align-items: center; justify-content: center; background: #fee2e2; }
-  .card-placeholder { display: flex; align-items: center; gap: 8px; color: var(--gray-mid); }
-  .card-placeholder svg { flex-shrink: 0; }
-  .card-placeholder span { font-size: 11px; line-height: 1.4; }
-  .card-filename { font-size: 11px; color: #1a6b3a; font-weight: 500; word-break: break-all; line-height: 1.4; }
-  .card-remove { position: absolute; top: 6px; right: 6px; z-index: 3; background: rgba(0,0,0,0.3); border: none; border-radius: 50%; width: 18px; height: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; color: #fff; font-size: 10px; line-height: 1; }
   .upload-card.done .card-remove { display: flex; }
 
   /* BOTÕES */
@@ -237,18 +198,53 @@
 
       <p class="section-title">Documentos de identificação</p>
 
-      <div class="grid g3">
+      <div class="grid" style="grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px;">
         <div class="field">
           <label>6. RG / CPF ou CNH (frente e verso)</label>
           <input id="rg" type="text" placeholder="Número do RG ou CNH" />
         </div>
         <div class="field">
-          <label>Órgão emissor</label>
-          <input id="orgao_emissor" type="text" placeholder="SSP-RO" />
-        </div>
-        <div class="field">
           <label>CPF</label>
           <input id="cpf" type="text" placeholder="000.000.000-00" maxlength="14" />
+        </div>
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="field">
+          <label>Órgão emissor</label>
+          <input id="orgao_emissor" type="text" placeholder="Ex: SSP, SESDEC, DETRAN, PC..." />
+        </div>
+        <div class="field">
+          <label>Estado de emissão (UF)</label>
+          <select id="orgao_emissor_uf">
+            <option value="">Selecione...</option>
+            <option value="AC">AC — Acre</option>
+            <option value="AL">AL — Alagoas</option>
+            <option value="AM">AM — Amazonas</option>
+            <option value="AP">AP — Amapá</option>
+            <option value="BA">BA — Bahia</option>
+            <option value="CE">CE — Ceará</option>
+            <option value="DF">DF — Distrito Federal</option>
+            <option value="ES">ES — Espírito Santo</option>
+            <option value="GO">GO — Goiás</option>
+            <option value="MA">MA — Maranhão</option>
+            <option value="MG">MG — Minas Gerais</option>
+            <option value="MS">MS — Mato Grosso do Sul</option>
+            <option value="MT">MT — Mato Grosso</option>
+            <option value="PA">PA — Pará</option>
+            <option value="PB">PB — Paraíba</option>
+            <option value="PE">PE — Pernambuco</option>
+            <option value="PI">PI — Piauí</option>
+            <option value="PR">PR — Paraná</option>
+            <option value="RJ">RJ — Rio de Janeiro</option>
+            <option value="RN">RN — Rio Grande do Norte</option>
+            <option value="RO" selected>RO — Rondônia</option>
+            <option value="RR">RR — Roraima</option>
+            <option value="RS">RS — Rio Grande do Sul</option>
+            <option value="SC">SC — Santa Catarina</option>
+            <option value="SE">SE — Sergipe</option>
+            <option value="SP">SP — São Paulo</option>
+            <option value="TO">TO — Tocantins</option>
+          </select>
         </div>
       </div>
 
@@ -308,7 +304,7 @@
 
       <div class="field" style="margin-top:14px">
         <label>11. Órgão Público</label>
-        <input id="orgao" type="text" placeholder="Nome do órgão público ao qual pertence" />
+        <input id="orgao" type="text" value="SESDEC/PMRO/CPE/BPFRON" />
       </div>
 
       <p class="section-title">Local e data</p>
@@ -316,18 +312,18 @@
       <div class="grid g2">
         <div class="field">
           <label>Local</label>
-          <input id="local" type="text" placeholder="Cidade" />
+          <input id="local" type="text" placeholder="Guajará-Mirim" />
         </div>
         <div class="field">
           <label>Data</label>
-          <input id="data" type="date" />
+          <input id="data" type="text" readonly style="background:var(--off-white);color:var(--text2);cursor:default;" />
         </div>
       </div>
 
+      <!-- DOCUMENTOS UPLOAD -->
       <div style="border:1px solid var(--gray-light);border-left:3px solid var(--gold);border-radius:2px;background:var(--off-white);padding:14px 18px;margin-top:24px;">
         <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Documentos necessários — enviar pelo link abaixo após baixar o PDF</h4>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
-          <li style="font-size:12px;color:#444;display:flex;align-items:center;gap:8px;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;display:inline-block;"></span>Foto 3×4 (incluída no formulário acima)</li>
           <li style="font-size:12px;color:#444;display:flex;align-items:center;gap:8px;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;display:inline-block;"></span>Cópia RG/CPF ou Carteira de Motorista (frente e verso)</li>
           <li style="font-size:12px;color:#444;display:flex;align-items:center;gap:8px;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;display:inline-block;"></span>Cópia do Título de Eleitor</li>
           <li style="font-size:12px;color:#444;display:flex;align-items:center;gap:8px;"><span style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;display:inline-block;"></span>Cópia do Comprovante de residência</li>
@@ -364,6 +360,11 @@
   document.getElementById('logo1').src = 'data:image/png;base64,' + BRASAO_B64;
   document.getElementById('logo2').src = 'data:image/png;base64,' + BPFRON_B64;
   document.getElementById('logo3').src = 'data:image/png;base64,' + MARINHA_B64;
+  const hoje = new Date();
+  const dia = String(hoje.getDate()).padStart(2,'0');
+  const mes = String(hoje.getMonth()+1).padStart(2,'0');
+  const ano = hoje.getFullYear();
+  document.getElementById('data').value = dia + '/' + mes + '/' + ano;
 
   let photoDataUrl = null;
 
@@ -472,7 +473,7 @@
           </div>
           <div>${fotoHtml}</div>
         </div>
-        <p style="margin:0 0 6px;"><strong>6. RG/CPF ou CNH:</strong> ${v('rg')} &nbsp; <strong>Órgão emissor:</strong> ${v('orgao_emissor')} &nbsp; <strong>CPF:</strong> ${v('cpf')}</p>
+        <p style="margin:0 0 6px;"><strong>6. RG/CPF ou CNH:</strong> ${v('rg')} &nbsp; <strong>Órgão emissor:</strong> ${v('orgao_emissor')}/${document.getElementById('orgao_emissor_uf').value||'—'} &nbsp; <strong>CPF:</strong> ${v('cpf')}</p>
         <p style="margin:0 0 6px;"><strong>7. Naturalidade:</strong> ${v('naturalidade')} &nbsp; <strong>Altura:</strong> ${v('altura')} &nbsp; <strong>Cor dos olhos:</strong> ${v('olhos')}</p>
         <p style="margin:0 0 6px;"><strong>8. Endereço:</strong> ${v('endereco')}, Nº ${v('numero')}</p>
         <p style="margin:0 0 6px;"><strong>9. Bairro:</strong> ${v('bairro')} &nbsp; <strong>Cidade:</strong> ${v('cidade')}</p>
