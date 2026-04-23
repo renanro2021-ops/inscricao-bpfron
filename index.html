@@ -437,71 +437,110 @@
 
   function gerarPDF() {
     const fotoHtml = photoDataUrl
-      ? `<img src="${photoDataUrl}" style="width:90px;height:120px;object-fit:cover;border:1px solid #ccc;" />`
-      : `<div style="width:90px;height:120px;border:1px dashed #bbb;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Sem foto</div>`;
+      ? `<img src="${photoDataUrl}" style="width:90px;height:120px;object-fit:cover;border:1px solid #ccc;border-radius:2px;" />`
+      : `<div style="width:90px;height:120px;border:1px dashed #bbb;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;text-align:center;">Sem<br/>foto</div>`;
+
+    const uf = document.getElementById('orgao_emissor_uf').value || '—';
 
     const html = `
-    <div style="font-family:Arial,sans-serif;font-size:11px;color:#111;padding:20px 28px;max-width:740px;">
-      <div style="background:#0a1628;padding:12px 20px;display:flex;align-items:center;gap:16px;">
-        <img src="data:image/png;base64,${BRASAO_B64}" style="height:60px;" />
-        <div style="flex:1;text-align:center;">
-          <div style="color:#c9960a;font-size:10px;letter-spacing:2px;">ESTADO DE RONDÔNIA — PM/RO</div>
-          <div style="color:#fff;font-size:15px;font-weight:700;letter-spacing:1px;margin:2px 0;">BATALHÃO DE POLÍCIA DE FRONTEIRA E DIVISAS</div>
-          <div style="color:rgba(255,255,255,0.6);font-size:10px;">BPFRON · Marinha do Brasil · Agência Fluvial de Guajará-Mirim</div>
+    <div style="font-family:Arial,sans-serif;font-size:11px;color:#111;padding:24px 32px;max-width:720px;">
+
+      <div style="text-align:center;border-bottom:2px solid #0a1628;padding-bottom:12px;margin-bottom:14px;">
+        <div style="font-size:9px;letter-spacing:2px;color:#c9960a;text-transform:uppercase;">Estado de Rondônia — PM/RO</div>
+        <div style="font-size:16px;font-weight:700;color:#0a1628;margin:4px 0;letter-spacing:1px;">BATALHÃO DE POLÍCIA DE FRONTEIRA E DIVISAS — BPFRON</div>
+        <div style="font-size:9px;color:#555;letter-spacing:1px;">Marinha do Brasil · Agência Fluvial de Guajará-Mirim</div>
+        <div style="background:#b71c1c;color:#fff;font-size:9px;padding:4px 12px;display:inline-block;margin-top:6px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;">
+          Curso Especial para Tripulação de Embarcações de Estado no Serviço Público
         </div>
-        <img src="data:image/png;base64,${BPFRON_B64}" style="height:60px;" />
-        <img src="data:image/png;base64,${MARINHA_B64}" style="height:60px;" />
       </div>
-      <div style="background:#c9960a;height:3px;"></div>
-      <div style="background:#152444;padding:5px 20px;text-align:center;font-size:9px;color:rgba(255,255,255,0.7);letter-spacing:2px;">MARINHA DO BRASIL · AGÊNCIA FLUVIAL DE GUAJARÁ-MIRIM · TURMA T2/2026</div>
-      <div style="background:#b71c1c;padding:5px 20px;text-align:center;font-size:9px;color:#fff;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;">Curso Especial para Tripulação de Embarcações de Estado no Serviço Público</div>
-      <div style="background:#f7f6f2;border-bottom:1px solid #ddd;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
         <div>
-          <div style="font-size:9px;letter-spacing:2px;color:#c9960a;">ANEXO G — AgGMirim 10-01C</div>
-          <div style="font-size:16px;font-weight:700;color:#0a1628;">FICHA DE INSCRIÇÃO</div>
+          <div style="font-size:9px;letter-spacing:2px;color:#c9960a;text-transform:uppercase;">Anexo G — AgGMirim 10-01C</div>
+          <div style="font-size:18px;font-weight:700;color:#0a1628;">FICHA DE INSCRIÇÃO</div>
         </div>
-        <div style="background:#0a1628;color:#c9960a;font-size:11px;font-weight:700;letter-spacing:2px;padding:5px 14px;">T2 / 2026</div>
+        <div style="background:#0a1628;color:#c9960a;font-size:12px;font-weight:700;letter-spacing:2px;padding:6px 16px;">T2 / 2026</div>
       </div>
-      <div style="padding:16px 20px;">
-        <div style="display:flex;gap:16px;margin-bottom:10px;">
-          <div style="flex:1;">
-            <p style="margin:0 0 6px;"><strong>1. Nome:</strong> ${v('nome')}</p>
-            <p style="margin:0 0 6px;"><strong>2. Data de nascimento:</strong> ${fmtDate(v('nascimento'))}</p>
-            <p style="margin:0 0 6px;"><strong>3. Mãe:</strong> ${v('mae')}</p>
-            <p style="margin:0 0 6px;"><strong>4. Pai:</strong> ${v('pai')}</p>
-            <p style="margin:0 0 6px;"><strong>5. Sexo:</strong> ${sexo()}</p>
-          </div>
-          <div>${fotoHtml}</div>
-        </div>
-        <p style="margin:0 0 6px;"><strong>6. RG/CPF ou CNH:</strong> ${v('rg')} &nbsp; <strong>Órgão emissor:</strong> ${v('orgao_emissor')}/${document.getElementById('orgao_emissor_uf').value||'—'} &nbsp; <strong>CPF:</strong> ${v('cpf')}</p>
-        <p style="margin:0 0 6px;"><strong>7. Naturalidade:</strong> ${v('naturalidade')} &nbsp; <strong>Altura:</strong> ${v('altura')} &nbsp; <strong>Cor dos olhos:</strong> ${v('olhos')}</p>
-        <p style="margin:0 0 6px;"><strong>8. Endereço:</strong> ${v('endereco')}, Nº ${v('numero')}</p>
-        <p style="margin:0 0 6px;"><strong>9. Bairro:</strong> ${v('bairro')} &nbsp; <strong>Cidade:</strong> ${v('cidade')}</p>
-        <p style="margin:0 0 6px;"><strong>10. CEP:</strong> ${v('cep')} &nbsp; <strong>Estado:</strong> ${v('estado')} &nbsp; <strong>Telefone:</strong> ${v('tel')}</p>
-        <p style="margin:0 0 16px;"><strong>11. Órgão Público:</strong> ${v('orgao')}</p>
-        <p style="margin:0 0 40px;"><strong>Local:</strong> ${v('local')}, ${fmtDate(v('data'))}</p>
-        <div style="text-align:center;margin-bottom:20px;">
-          <div style="border-top:1px solid #333;width:260px;display:inline-block;padding-top:4px;font-size:11px;">Assinatura do requerente</div>
-        </div>
-        <div style="border-left:3px solid #c9960a;padding:10px 14px;background:#f7f6f2;">
-          <strong style="font-size:10px;letter-spacing:1px;">DOCUMENTOS NECESSÁRIOS:</strong>
-          <ul style="margin:6px 0 0 14px;padding:0;font-size:10px;line-height:1.9;">
-            <li>Uma foto 3×4</li>
-            <li>Cópia RG/CPF ou Carteira de Motorista (frente e verso)</li>
-            <li>Cópia do Título de Eleitor</li>
-            <li>Cópia do Comprovante de residência</li>
-          </ul>
-        </div>
+
+      <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
+        <tr>
+          <td style="width:70%;vertical-align:top;padding-right:12px;">
+            <table style="width:100%;border-collapse:collapse;">
+              <tr><td style="padding:5px 0;border-bottom:1px solid #eee;"><strong>1. Nome:</strong> ${v('nome')}</td></tr>
+              <tr><td style="padding:5px 0;border-bottom:1px solid #eee;"><strong>2. Data de nascimento:</strong> ${v('nascimento') !== '—' ? fmtDate(v('nascimento')) : '—'}</td></tr>
+              <tr><td style="padding:5px 0;border-bottom:1px solid #eee;"><strong>3. Mãe:</strong> ${v('mae')}</td></tr>
+              <tr><td style="padding:5px 0;border-bottom:1px solid #eee;"><strong>4. Pai:</strong> ${v('pai')}</td></tr>
+              <tr><td style="padding:5px 0;"><strong>5. Sexo:</strong> ${sexo()}</td></tr>
+            </table>
+          </td>
+          <td style="width:30%;vertical-align:top;text-align:center;">
+            ${fotoHtml}
+            <div style="font-size:9px;color:#999;margin-top:4px;">Foto 3×4</div>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width:100%;border-collapse:collapse;margin-bottom:8px;">
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:5px 6px;width:40%;"><strong>6. RG:</strong> ${v('rg')}</td>
+          <td style="padding:5px 6px;width:30%;"><strong>Órgão emissor:</strong> ${v('orgao_emissor')}</td>
+          <td style="padding:5px 6px;width:30%;"><strong>Estado:</strong> ${uf}</td>
+        </tr>
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:5px 6px;" colspan="2"><strong>CPF:</strong> ${v('cpf')}</td>
+          <td style="padding:5px 6px;"><strong>Sexo:</strong> ${sexo()}</td>
+        </tr>
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:5px 6px;"><strong>7. Naturalidade:</strong> ${v('naturalidade')}</td>
+          <td style="padding:5px 6px;"><strong>Altura:</strong> ${v('altura')}</td>
+          <td style="padding:5px 6px;"><strong>Cor dos olhos:</strong> ${v('olhos')}</td>
+        </tr>
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:5px 6px;" colspan="2"><strong>8. Endereço:</strong> ${v('endereco')}, Nº ${v('numero')}</td>
+          <td style="padding:5px 6px;"></td>
+        </tr>
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:5px 6px;"><strong>9. Bairro:</strong> ${v('bairro')}</td>
+          <td style="padding:5px 6px;" colspan="2"><strong>Cidade:</strong> ${v('cidade')}</td>
+        </tr>
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:5px 6px;"><strong>10. CEP:</strong> ${v('cep')}</td>
+          <td style="padding:5px 6px;"><strong>Estado:</strong> ${v('estado')}</td>
+          <td style="padding:5px 6px;"><strong>Telefone:</strong> ${v('tel')}</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 6px;" colspan="3"><strong>11. Órgão Público:</strong> ${v('orgao')}</td>
+        </tr>
+      </table>
+
+      <div style="margin-top:20px;margin-bottom:40px;">
+        <strong>Local:</strong> ${v('local')}, ${v('data')}
+      </div>
+
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="border-top:1px solid #333;width:280px;display:inline-block;padding-top:4px;font-size:10px;">Assinatura do requerente</div>
+      </div>
+
+      <div style="border-left:3px solid #c9960a;padding:10px 14px;background:#f7f6f2;margin-top:12px;">
+        <strong style="font-size:10px;letter-spacing:1px;text-transform:uppercase;">Documentos necessários:</strong>
+        <ul style="margin:6px 0 0 14px;padding:0;font-size:10px;line-height:2;">
+          <li>Uma foto 3×4</li>
+          <li>Cópia RG/CPF ou Carteira de Motorista (frente e verso)</li>
+          <li>Cópia do Título de Eleitor</li>
+          <li>Cópia do Comprovante de residência</li>
+        </ul>
       </div>
     </div>`;
 
     const el = document.createElement('div');
     el.innerHTML = html;
     document.body.appendChild(el);
+
     html2pdf().set({
-      margin: 0, filename: 'Ficha_Inscricao_BPFRON_T2_2026.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      margin: 0,
+      filename: 'Ficha_Inscricao_BPFRON_T2_2026.pdf',
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(el).save().then(() => document.body.removeChild(el));
   }
